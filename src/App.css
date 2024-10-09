@@ -1,5 +1,27 @@
 .App {
   text-align: center;
+  position: relative;
+}
+
+.page-header {
+  width: 100%;
+  height: 40px;
+  text-align: left;
+  font-size: 20px;
+  padding: 20px;
+  align-content: center;
+  color: white;
+  background-color: black;
+  position:relative;
+}
+
+.post {
+  position:relative;
+  width: 100%;
+  height: 80px;
+  border: solid;
+  border-radius: 10px;
+  margin: 5px;
 }
 
 .App-logo {
