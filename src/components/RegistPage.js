@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import register from '../js/user';
+import { register } from '../js/user';
 import '../styles/RegistPage.css'; // CSS 파일 가져오기
 
 const RegistPage = () => {

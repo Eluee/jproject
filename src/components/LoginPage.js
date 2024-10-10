@@ -1,21 +1,28 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios'; // axios import
+import { getUserByEmail } from '../js/user';
 import '../styles/LoginPage.css'; // CSS 파일 가져오기
+
+
 
 const LoginPage = () => {
     const navigate = useNavigate();
     const [email, setEmail] = useState(''); // 이메일 상태 관리
 
-    const handleLogin = (event) => {
+    const handleLogin = async (event) => {
         event.preventDefault(); // 기본 폼 제출 동작 방지
 
-        // 로그인 처리 로직 (예: 입력된 이메일 확인)
-        if (email) {
-            // 이메일이 존재하는 경우 (여기서는 단순히 이메일이 비어있지 않은 경우를 확인)
-            console.log("로그인 성공:", email);
+        // 입력된 이메일로 사용자 정보 가져오기
+        const userData = await getUserByEmail(email);
+        console.log(email);
+        // 사용자 데이터가 존재하는 경우 (로그인 성공)
+        if (userData) {
+            console.log("로그인 성공:", userData);
             navigate('/MainPage'); // 메인 페이지로 이동
         } else {
-            console.log("이메일을 입력해주세요.");
+            console.log("로그인 실패: 이메일을 확인하세요.");
+            alert("로그인 실패: 이메일을 확인하세요."); // 사용자에게 알림
         }
     };
 

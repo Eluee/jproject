@@ -3,18 +3,19 @@ import { SERVERURL } from './constants';
 
 // /api/users
 async function register(email, name) {
-    const userData = {name : name, email: email};
+    const userData = { name: name, email: email };
 
     try {
         const response = await axios.post(SERVERURL + '/api/users', userData);
-        alert("회원가입 완료!")
-    } catch (error){
-        alert("회원가입 실패!")
+        alert("회원가입 완료!");
+    } catch (error) {
+        alert("회원가입 실패!");
     }
-};
+}
+
 const getUserByEmail = async (email) => {
     try {
-        const response = await axios.get(SERVERURL+`api/users/email/${email}`);
+        const response = await axios.get(SERVERURL + `/api/users/email/${email}`);
         console.log("User data:", response.data);
         console.log(typeof(response.data));
         return response.data;
@@ -27,4 +28,5 @@ const getUserByEmail = async (email) => {
     }
 };
 
-export default register;
+// 두 함수를 한 번에 export
+ export { getUserByEmail, register}
