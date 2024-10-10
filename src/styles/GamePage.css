@@ -1,3 +1,4 @@
+/* GamePage.css */
 .container {
     display: flex;
     flex-direction: column;
@@ -9,116 +10,81 @@
 }
 
 .wordBox {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 200px;
-    height: 100px;
-    background-color: #fff;
+    margin: 20px 0;
+    padding: 20px;
     border: 1px solid #ddd;
     border-radius: 8px;
+    background-color: #fff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-    font-size: 24px;
-    font-weight: bold;
+    width: 300px; /* 단어 칸 너비 고정 */
+    text-align: center; /* 텍스트 중앙 정렬 */
 }
 
 .options {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    width: 300px; /* 옵션 버튼 너비 고정 */
 }
 
-.optionButton {
-    width: 200px;
-    padding: 10px;
-    font-size: 18px;
-    border-radius: 8px;
-    border: 1px solid #ddd;
-    background-color: #ffffff;
+.optionButton, .correctOption, .incorrectOption {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
     cursor: pointer;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s;
+    width: 100%; /* 버튼 너비를 100%로 설정하여 고정된 너비에 맞게 조정 */
 }
 
 .correctOption {
-    width: 200px;
-    padding: 10px;
-    font-size: 18px;
-    border-radius: 8px;
-    border: 1px solid #4CAF50;
-    background-color: #4CAF50;
-    color: #fff;
-    cursor: pointer;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    background-color: #4CAF50; /* 정답일 때 초록색 배경 */
+    color: white; /* 정답일 때 글씨 색상을 흰색으로 */
 }
+
 
 .incorrectOption {
-    width: 200px;
-    padding: 10px;
-    font-size: 18px;
-    border-radius: 8px;
-    border: 1px solid #F44336;
-    background-color: #F44336;
-    color: #fff;
-    cursor: pointer;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    background-color: #f44336; /* Red for incorrect answer */
+    color: white;
 }
 
+/* 피드백 메시지 스타일 */
 .feedbackContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 20px;
+    margin-top: 20px; /* 문제와 메시지 간의 간격 */
+    height: 40px; /* 메시지 높이를 고정 */
 }
 
 .feedback {
-    font-size: 18px;
-    color: #333;
+    font-size: 16px;
+    
 }
 
-.nextButton {
-    margin-top: 10px;
-    padding: 10px 20px;
-    font-size: 18px;
-    border-radius: 8px;
-    border: none;
-    background-color: #007BFF;
-    color: #fff;
-    cursor: pointer;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-    transition: background-color 0.3s ease;
-}
-/* GamePage.css */
+/* 레벨업 알림 스타일 */
 .alertContainer {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* 반투명 배경 */
     display: flex;
-    justify-content: center;
     align-items: center;
-    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
 }
 
 .alertBox {
     background-color: white;
     padding: 20px;
     border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     text-align: center;
 }
 
 .nextLevelButton {
     margin-top: 10px;
     padding: 10px 20px;
-    background-color: #4CAF50;
-    color: white;
     border: none;
     border-radius: 4px;
+    background-color: #007bff; /* 버튼 색상 */
+    color: white;
     cursor: pointer;
-}
-
-.nextLevelButton:hover {
-    background-color: #45a049;
 }

@@ -38,7 +38,7 @@ function GamePage() {
 
                 // Level up every 10 correct answers, but max level is 6
                 if (newCount % 10 === 0 && level < 6) {
-                    setLevel(level+1); // 레벨을 증가시키기 전에 현재 레벨 체크
+                    setLevel(level + 1); // 레벨을 증가시키기 전에 현재 레벨 체크
                     setLevelUpAlert(true); // 레벨업 알림 표시
                 }
 
@@ -77,6 +77,10 @@ function GamePage() {
 
     const currentQuestion = questions[currentQuestionIndex];
 
+    // 정답률 계산
+    const totalQuestions = correctAnswersCount + (currentQuestionIndex + 1); // 총 푼 문제 수
+    const correctRate = totalQuestions > 0 ? (correctAnswersCount / totalQuestions) * 100 : 0;
+
     return (
         <div className="container">
             <h3>Level: {level}</h3> {/* Display current level */}
@@ -94,19 +98,20 @@ function GamePage() {
                     </button>
                 ))}
             </div>
-            {selectedAnswer && (
-                <div className="feedbackContainer">
+            <div className="feedbackContainer">
+                {selectedAnswer && (
                     <p className="feedback">
                         {selectedAnswer === currentQuestion.correctAnswer ? '정답입니다!' : '틀렸습니다. 다시 시도하세요!'}
                     </p>
-                </div>
-            )}
+                )}
+            </div>
 
             {/* 레벨업 알림창 */}
             {levelUpAlert && (
                 <div className="alertContainer">
                     <div className="alertBox">
                         <p>축하합니다! 레벨이 {level}로 올랐습니다!</p>
+                        <p>현재 정답률: {correctRate.toFixed(2)}%</p> {/* 정답률 표시 */}
                         <button onClick={closeAlertAndNextQuestion} className="nextLevelButton">
                             다음 레벨 문제 풀기
                         </button>
