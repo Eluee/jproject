@@ -1,35 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { getJpDictData, createQuestionsFromData } from '../js/jpvocabulary';
 import '../styles/GamePage.css'; // CSS 파일 import
 
 function GamePage() {
-    const questions = [
-        {
-            japaneseWord: 'こんにちは',
-            options: ['안녕하세요', '감사합니다', '안녕히 가세요'],
-            correctAnswer: '안녕하세요',
-        },
-        {
-            japaneseWord: 'さようなら',
-            options: ['안녕하세요', '안녕히 가세요', '고맙습니다'],
-            correctAnswer: '안녕히 가세요',
-        },
-        {
-            japaneseWord: 'ありがとう',
-            options: ['안녕하세요', '고맙습니다', '안녕히 가세요'],
-            correctAnswer: '고맙습니다',
-        },
-        // Add more questions as needed
-    ];
-    
+    const [questions, setQuestions] = useState([]); // API에서 가져올 문제 리스트
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [selectedAnswer, setSelectedAnswer] = useState(null);
     const [correctAnswersCount, setCorrectAnswersCount] = useState(0);
     const [level, setLevel] = useState(1);
     const [levelUpAlert, setLevelUpAlert] = useState(false); // Level up alert 상태
 
-    const currentQuestion = questions[currentQuestionIndex];
+    // 데이터를 가져와서 문제 생성
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await getJpDictData(level); // 현재 레벨에 맞는 데이터를 가져옴
+                const generatedQuestions = createQuestionsFromData(response); // 데이터를 문제 형식으로 변환
+                setQuestions(generatedQuestions); // 문제 상태에 저장
+            } catch (error) {
+                console.error("데이터 가져오기 에러:", error);
+            }
+        };
+
+        fetchData();
+    }, [level]); // 레벨이 변경될 때마다 데이터 다시 가져옴
 
     const handleAnswerClick = (option) => {
+        if (questions.length === 0) return; // 데이터가 없을 경우 처리
+
+        const currentQuestion = questions[currentQuestionIndex];
         const correct = option === currentQuestion.correctAnswer;
         setSelectedAnswer(option);
 
@@ -37,9 +36,9 @@ function GamePage() {
             setCorrectAnswersCount((prevCount) => {
                 const newCount = prevCount + 1;
 
-                // Level up every 10 correct answers
-                if (newCount % 10 === 0) {
-                    setLevel(level + 1);
+                // Level up every 10 correct answers, but max level is 6
+                if (newCount % 10 === 0 && level < 6) {
+                    setLevel(level+1); // 레벨을 증가시키기 전에 현재 레벨 체크
                     setLevelUpAlert(true); // 레벨업 알림 표시
                 }
 
@@ -64,12 +63,19 @@ function GamePage() {
     const getButtonStyle = (option) => {
         if (selectedAnswer === null) return 'optionButton';
 
+        const currentQuestion = questions[currentQuestionIndex];
         if (option === selectedAnswer) {
             return option === currentQuestion.correctAnswer ? 'correctOption' : 'incorrectOption';
         }
 
         return 'optionButton';
     };
+
+    if (questions.length === 0) {
+        return <div>Loading...</div>; // 데이터가 없을 때 로딩 상태 표시
+    }
+
+    const currentQuestion = questions[currentQuestionIndex];
 
     return (
         <div className="container">
