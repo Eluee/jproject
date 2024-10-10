@@ -1,4 +1,4 @@
-import getJpDictData from "../js/jpvocabulary";
+import {getJpDictData, createQuestionsFromData } from "../js/jpvocabulary";
 import { useState } from "react";
 
 const TestPage = () => {
@@ -6,8 +6,7 @@ const TestPage = () => {
     
     const test = async () => {
         const response = await getJpDictData(1);
-        console.log(response[0]['kanji']);
-        
+        return createQuestionsFromData(response);
     }
 
     return (
