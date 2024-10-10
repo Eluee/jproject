@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios'; // axios import
 import { getUserByEmail } from '../js/user';
+import { useUser } from './UserContext'; // UserContext import
 import '../styles/LoginPage.css'; // CSS 파일 가져오기
-
-
 
 const LoginPage = () => {
     const navigate = useNavigate();
     const [email, setEmail] = useState(''); // 이메일 상태 관리
+    const { setUserData } = useUser(); // UserContext의 setUserData 가져오기
 
     const handleLogin = async (event) => {
         event.preventDefault(); // 기본 폼 제출 동작 방지
@@ -19,7 +19,8 @@ const LoginPage = () => {
         // 사용자 데이터가 존재하는 경우 (로그인 성공)
         if (userData) {
             console.log("로그인 성공:", userData);
-            navigate('/MainPage'); // 메인 페이지로 이동
+            setUserData(userData); // userData를 Context에 저장
+            navigate('/MainPage');
         } else {
             console.log("로그인 실패: 이메일을 확인하세요.");
             alert("로그인 실패: 이메일을 확인하세요."); // 사용자에게 알림
