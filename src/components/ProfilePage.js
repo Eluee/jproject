@@ -17,8 +17,7 @@ const ProfilePage = () => {
                
                 <p><strong>이름:</strong> {userData.name}</p>
                 <p><strong>이메일:</strong> {userData.email}</p>
-                <p><strong>레벨:</strong> {userData.difflevel}</p>
-                <p><strong>정답률:</strong> {userData.correct_rate}</p>
+             
             </div>
         </div>
     );

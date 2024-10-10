@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { getJpDictData, createQuestionsFromData } from '../js/jpvocabulary';
 import '../styles/GamePage.css'; // CSS 파일 import
