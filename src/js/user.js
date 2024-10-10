@@ -11,7 +11,7 @@ async function register(email, name) {
         const response = await axios.post(serverUrl + '/api/users', userData);
         alert("회원가입 완료!")
     } catch (error){
-        console.log(error.response.status);
+        alert("회원가입 실패!")
     }
 }
 

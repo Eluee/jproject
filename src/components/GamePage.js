@@ -20,36 +20,45 @@ function GamePage() {
         },
         // Add more questions as needed
     ];
-
+    
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [selectedAnswer, setSelectedAnswer] = useState(null);
-    const [isCorrect, setIsCorrect] = useState(null);
     const [correctAnswersCount, setCorrectAnswersCount] = useState(0);
     const [level, setLevel] = useState(1);
+    const [levelUpAlert, setLevelUpAlert] = useState(false); // Level up alert 상태
 
     const currentQuestion = questions[currentQuestionIndex];
 
     const handleAnswerClick = (option) => {
-        setSelectedAnswer(option);
         const correct = option === currentQuestion.correctAnswer;
-        setIsCorrect(correct);
+        setSelectedAnswer(option);
 
         if (correct) {
             setCorrectAnswersCount((prevCount) => {
                 const newCount = prevCount + 1;
-                // Level up every 20 correct answers
+
+                // Level up every 10 correct answers
                 if (newCount % 10 === 0) {
-                    setLevel((prevLevel) => prevLevel + 1);
+                    setLevel(level + 1);
+                    setLevelUpAlert(true); // 레벨업 알림 표시
                 }
+
                 return newCount;
             });
+
+            // 다음 질문으로 자동 이동 (작은 지연 추가)
+            setTimeout(nextQuestion, 500); 
         }
     };
 
     const nextQuestion = () => {
         setSelectedAnswer(null);
-        setIsCorrect(null);
         setCurrentQuestionIndex((prevIndex) => (prevIndex + 1) % questions.length);
+    };
+
+    const closeAlertAndNextQuestion = () => {
+        setLevelUpAlert(false);
+        nextQuestion();
     };
 
     const getButtonStyle = (option) => {
@@ -79,18 +88,27 @@ function GamePage() {
                     </button>
                 ))}
             </div>
-            {isCorrect !== null && (
+            {selectedAnswer && (
                 <div className="feedbackContainer">
                     <p className="feedback">
-                        {isCorrect ? '정답입니다!' : '틀렸습니다. 다시 시도하세요!'}
+                        {selectedAnswer === currentQuestion.correctAnswer ? '정답입니다!' : '틀렸습니다. 다시 시도하세요!'}
                     </p>
-                    <button onClick={nextQuestion} className="nextButton">
-                        다음 문제
-                    </button>
+                </div>
+            )}
+
+            {/* 레벨업 알림창 */}
+            {levelUpAlert && (
+                <div className="alertContainer">
+                    <div className="alertBox">
+                        <p>축하합니다! 레벨이 {level}로 올랐습니다!</p>
+                        <button onClick={closeAlertAndNextQuestion} className="nextLevelButton">
+                            다음 레벨 문제 풀기
+                        </button>
+                    </div>
                 </div>
             )}
         </div>
     );
 }
 
-export default GamePage; // Changed the export statement here
+export default GamePage;

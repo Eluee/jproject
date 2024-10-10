@@ -18,22 +18,7 @@ const HomePage = () => {
                 >
                     로그인
                 </button>
-                <button
-                    className={`button ${hoveredButton === 'game' ? 'buttonHover' : ''}`}
-                    onMouseEnter={() => setHoveredButton('game')}
-                    onMouseLeave={() => setHoveredButton(null)}
-                    onClick={() => navigate('GamePage')}
-                >
-                    게임하기
-                </button>
-                <button
-                    className={`button ${hoveredButton === 'profile' ? 'buttonHover' : ''}`}
-                    onMouseEnter={() => setHoveredButton('profile')}
-                    onMouseLeave={() => setHoveredButton(null)}
-                    onClick={() => navigate('ProfilePage')}
-                >
-                    프로필보기
-                </button>
+               
             </div>
         </div>
     );

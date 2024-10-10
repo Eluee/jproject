@@ -15,7 +15,7 @@ const LoginPage = () => {
 
     return (
         <div className="container">
-            <h1>로그인</h1>
+            <h1>일본어 단어퀴즈</h1>
             <form className="form" onSubmit={handleLogin}>
                 <label className="label">이메일</label>
                 <input type="email" className="input" required />
