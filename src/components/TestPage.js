@@ -1,12 +1,12 @@
 import {getJpDictData, createQuestionsFromData } from "../js/jpvocabulary";
+import { updateUser } from "../js/user";
 import { useState } from "react";
 
 const TestPage = () => {
     const [Data, setData] = useState([]);
     
     const test = async () => {
-        const response = await getJpDictData(1);
-        return createQuestionsFromData(response);
+        updateUser("1@naver.com",6, 19);
     }
 
     return (

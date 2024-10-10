@@ -28,5 +28,31 @@ const getUserByEmail = async (email) => {
     }
 };
 
+const updateUser = async (email, difflevel, correct_rate) => {
+    try {
+        const response = await fetch(`${SERVERURL}/api/users/${email}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                difflevel: difflevel,
+                correct_rate: correct_rate,
+            }),
+        });
+
+        if (!response.ok) {
+            throw new Error('Error updating user');
+        }
+
+        const updatedUser = await response.json();
+        console.log('Updated User:', updatedUser);
+    } catch (error) {
+        console.error(error);
+    }
+};
+
+
+
 // 두 함수를 한 번에 export
- export { getUserByEmail, register}
+ export { getUserByEmail, register, updateUser}
